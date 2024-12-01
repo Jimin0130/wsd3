@@ -11,6 +11,7 @@ target/
 *.iws
 *.iml
 *.ipr
+src/main/webapp/WEB-INF/applicationContext.xml
 
 ### Eclipse ###
 .apt_generated

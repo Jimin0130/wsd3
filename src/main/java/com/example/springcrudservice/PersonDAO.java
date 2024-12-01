@@ -16,8 +16,9 @@ public class PersonDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private final String person_insert = "insert into Person (name, relationship, phone, email, address, birthday) values (?,?,?,?,?,?,)";
+    private final String person_insert = "insert into Person (name, relationship, phone, email, address, birthday) values (?,?,?,?,?,?)";
     private final String person_update = "UPDATE Person SET name=?, relationship=?, phone=?, email=?, address=?, birthday=? WHERE id=?";
+    private final String person_delete = "DELETE FROM Person WHERE id=?";
     private final String person_get = "select * from Person where id=?";
     private final String person_list = "select * from Person order by id desc";
     public int insertPerson(PersonVO vo) {
@@ -25,6 +26,9 @@ public class PersonDAO {
     }
     public int updatePerson(PersonVO vo) {
         return jdbcTemplate.update(person_update, new Object[]{vo.getName(), vo.getRelationship(), vo.getPhone(), vo.getEmail(), vo.getAddress(), vo.getBirthday(), vo.getId()});
+    }
+    public int deletePerson(int id) {
+        return jdbcTemplate.update(person_delete, new Object[]{id});
     }
     public PersonVO getPerson(int id) {
         return jdbcTemplate.queryForObject(person_get, new Object[] {id}, new BeanPropertyRowMapper<PersonVO>(PersonVO.class));
